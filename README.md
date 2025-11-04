@@ -28,10 +28,9 @@ Each folder includes a **specific method or algorithm**, written in **C language
 2. **Navigate to the desired folder (example: Bisection)**
    ```bash
    cd Bisection Method
-### Compile and Run the Program
-
-```bash
-gcc main.c -o main
-./main
+3. **Compile and Run the Program**
+   ```bash
+   gcc main.c -o main
+   ./main
 
 
