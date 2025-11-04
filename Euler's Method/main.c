@@ -12,7 +12,7 @@ double funct(double p, double q)
 
 int main()
 {
-    double a, b,h,t,y;
+    double a, b,h,t,w;
     int N,i;
     // Here, the initial values are
     a=0;
@@ -21,13 +21,13 @@ int main()
     N=(b-a)/h;
 
     t=a;
-    y=1; //y(0)=1
-    printf("By Euler method we get \nt ----------> y(t) are \n");
+    w=1; //y(0)=1
+    printf("t ----------> y(t) are \n");
     // Now calculating by Euler method
     for(i=1; i<=N+1; i++)
     {
-        printf("%lf ---> %lf \n", t, y);
-        y=y+h*funct(t,y);
+        printf("%lf ---> %lf \n", t, w);
+        w=w+h*funct(t,w);
         t=a+i*h;
 
     }
