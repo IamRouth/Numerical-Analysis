@@ -5,14 +5,14 @@
 int main()
 {
     int row, column, i,j,k;
-    float factor;
+    double factor;
     printf("Enter the number of rows of the matrix(A): ");
     scanf("%d", &row);
     printf("Enter the number of columns in the matrix(A): ");
     scanf("%d", &column);
-    float a[row][column];           // We are taking the matrix A whose elements are given by a_{i,j}
-    float l[row][row];              //Taking a lower Triangular square matrix L whose elements are given by l[i][j]
-    float b[row];                   // Taking vector b differently
+    double a[row][column];           // We are taking the matrix A whose elements are given by a_{i,j}
+    double l[row][row];              //Taking a lower Triangular square matrix L whose elements are given by l[i][j]
+    double b[row];                   // Taking vector b differently
 
     printf("\n \n");
 
@@ -21,7 +21,7 @@ int main()
         for(j=0;j<column; j++)
         {
             printf("Enter your value of {%d,%d} position: ", i+1,j+1);
-            scanf("%f", &a[i][j]);
+            scanf("%lf", &a[i][j]);
         }
     }
 
@@ -30,30 +30,12 @@ int main()
     {
         for(j=0;j<column; j++)
         {
-            printf("%f ", a[i][j]);
+            printf("%lf  ", a[i][j]);
         }
         printf("\n");
     }
 
-    int t;
-    printf("\nEnter either 1 for entering b matrix or 0 for continuing without b matrix. -> ");
-    scanf("%d", &t);
-    if(t==1)
-    {
-        for(i=0; i<row; i++)
-        {
-            printf("Enter value of b_{%d}: ", i+1);
-            scanf("%f", &b[i]);
-        }
-
-    printf("\nYour b vector is: \n");
-    for(i=0; i<row; i++)
-    {
-        printf("%f\n", b[i]);
-    }
-    }
-
-    //At first setting the lower triangular matrix as Identity matrix then we will update the matrix
+    //At first setting the lower triangular matrix as Identity matrix except some entries then we will update the matrix
     for(i=0; i<row; i++)
     {
         for(j=0; j<row; j++)
@@ -62,7 +44,7 @@ int main()
             {
                 l[i][j]=1;
             }
-            else
+            else if(j>i)
             {
                 l[i][j]=0;
             }
@@ -86,15 +68,18 @@ int main()
                     l[j][i]=factor;
                 }
         }
+        else
+        { printf("\nMatrix requires pivoting / diagonal entry 0\n");
+            return(0);
+        }
 
     }
-
     printf("\nThe U of A=LU is: \n \n");
     for(i=0; i<row;i++)                           // loop for printing the U of A=LU
     {
         for(j=0; j<column; j++)
         {
-            printf("%f ", a[i][j]);
+            printf("%lf  ", a[i][j]);
         }
         printf("\n");
     }
@@ -104,15 +89,29 @@ int main()
     {
         for(j=0;j<row; j++)
         {
-            printf("%f ", l[i][j]);
+            printf("%lf  ", l[i][j]);
         }
         printf("\n");
     }
 
-    //Calculating the y i.e. y{1}, y{2}, .. , y{n}
+    int t;
+    printf("\nDo you want to solve system of equations by LUD method? If yes type 1 else type 0. -> ");
+    scanf("%d", &t);
     if(t==1)
     {
-    float y[row], sum;
+        printf("\nEnter your b vector:\n");
+        for(i=0; i<row; i++)
+        {
+            printf("Enter value of b_{%d}: ", i+1);
+            scanf("%lf", &b[i]);
+        }
+    printf("\nYour b vector is: \n");
+    for(i=0; i<row; i++)
+    {
+        printf("%lf\n", b[i]);
+    }
+    //Calculating the y i.e. y{1}, y{2}, .. , y{n}
+    double y[row], sum;
     for(i=0; i<row; i++)
     {
         sum=0;
@@ -126,7 +125,7 @@ int main()
     printf("\nY is:  ");
     for(i=0; i<row; i++)
     {
-        printf("y{%d}=%f ", i+1, y[i]);
+        printf("y{%d}=%lf ", i+1, y[i]);
      //This next "if and else" condition is used to separate y1, y2,.. and yn.
             if(i==row-1)
             {
@@ -143,7 +142,7 @@ int main()
 
     }
 
-    float x[row];
+    double x[row];
     for(i=row-1; i>=0; i--)
     {
         sum=0;
@@ -157,7 +156,7 @@ int main()
     printf("\nThe solution by LU decomposition is: ");
     for(i=0; i<row; i++)
     {
-        printf("x{%d}=%f", i+1,x[i]);
+        printf("x{%d}=%lf", i+1,x[i]);
         //The below loop separate x{1}, x{2},..,x{n-1} and x{n}.
         if(i==row-1)
         {
@@ -171,12 +170,8 @@ int main()
         {
             printf(", ");
         }
-
-
     }
     }
-
-
 
 }
 
